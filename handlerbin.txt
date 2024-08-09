@@ -1,0 +1,738 @@
+-- filename: @./oas-validation/handler.lua
+-- version: luajit2
+-- line: [0, 749] id: 0
+local r0_0 = require("cjson.safe").new()
+local r1_0 = require("pl.tablex")
+local r2_0 = require("pl.stringx")
+local r3_0 = require("pl.utils").split
+local r4_0 = require("resty.openapi3.deserializer")
+local r5_0 = require("kong.enterprise_edition.event_hooks")
+local r6_0 = require("table.clone")
+local r7_0 = require("kong.enterprise_edition.openapi.plugins.swagger-parser.parser")
+local r8_0 = require("kong.enterprise_edition.openapi.plugins.swagger-parser.dereference")
+local r9_0 = require("resty.lrucache")
+local r10_0 = require("kong.plugins.oas-validation.utils")
+local r11_0 = require("kong.plugins.oas-validation.utils.validation")
+local r12_0 = require("kong.tools.sha256").sha256_hex
+local r13_0 = require("kong.tools.uri").normalize
+local r14_0 = require("kong.tools.json-schema.draft4").generate
+local r15_0 = require("kong.tools.mime_type").parse_mime_type
+local r16_0 = require("kong.meta")
+local r17_0 = require("kong.plugins.oas-validation.constants")
+local r18_0 = require("resty.cookie")
+local r19_0 = require("resty.jsonschema-rs")
+local r20_0 = kong
+local r21_0 = ngx
+local r22_0 = type
+local r23_0 = tostring
+local r24_0 = setmetatable
+local r25_0 = r21_0.re.match
+local r26_0 = ipairs
+local r27_0 = pairs
+local r28_0 = string.format
+local r29_0 = string.sub
+local r30_0 = string.gsub
+local r31_0 = r0_0.decode
+local r32_0 = r0_0.encode
+local r33_0 = r1_0.readonly({})
+local r34_0 = r1_0.find
+local r35_0 = r2_0.replace
+local r36_0 = r20_0.request.get_header
+local r37_0 = r10_0.get_req_body_json
+local r38_0 = r10_0.get_req_body
+local r39_0 = r11_0.content_type_allowed
+local r40_0 = r11_0.param_array_helper
+local r41_0 = r11_0.merge_params
+local r42_0 = r11_0.parameter_validator_v2
+local r43_0 = r11_0.locate_request_body_schema
+local r44_0 = r11_0.locate_response_body_schema
+local r45_0 = r10_0.normalize
+local r46_0 = r9_0.new(1000)
+r0_0.decode_array_with_array_mt(true)
+local r47_0 = "request doesn\'t conform to schema"
+local r48_0 = "request param doesn\'t conform to schema"
+local r49_0 = "response doesn\'t conform to schema"
+local r50_0 = "application/json"
+local r51_0 = "openapi"
+local r52_0 = r17_0.CONTENT_METHODS
+local r53_0 = "^3\\.1\\.\\d$"
+local r54_0 = {
+  ["PRIORITY"] = 840,
+  VERSION = r16_0.core_version,
+}
+local function r55_0(r0_30)
+  -- line: [79, 89] id: 30
+  local r1_30 = getmetatable(r0_30)
+  if not r1_30 then
+    return r0_30
+  end
+  if r22_0(r0_30.is_ref) == "function" and r0_30.is_ref(r0_30) then
+    r0_30.definitions = r1_30.refs.definitions
+    r0_30.components = r1_30.refs.components
+  end
+  return r0_30
+end
+local r56_0 = r24_0({}, {
+  ["__mode"] = "k",
+  __index = function(r0_29, r1_29)
+    -- line: [93, 100] id: 29
+    local r4_29 = assert(r14_0(assert(r32_0(r55_0(r1_29.schema)))))
+    r0_29[r1_29] = r4_29
+    return r4_29
+  end,
+})
+local r57_0 = r24_0({}, {
+  ["__mode"] = "k",
+  __index = function(r0_28, r1_28)
+    -- line: [106, 127] id: 28
+    local r2_28 = r55_0(r1_28.schema)
+    local r4_28 = assert(r14_0(assert(r32_0(r2_28)), {
+      ["coercion"] = true,
+    }))
+    r0_28[r1_28] = r4_28
+    local r5_28 = nil
+    if r22_0(r2_28.is_ref) == "function" and r2_28.is_ref(r2_28) then
+      r5_28 = {
+        definitions = r2_28.definitions,
+        components = r2_28.components,
+      }
+    end
+    local r7_28, r8_28 = r8_0.dereference(r2_28, {
+      dereference = {
+        ["circular"] = false,
+      },
+    }, r5_28)
+    r1_28.decoded_schema = assert(r7_28, r8_28)
+    return r4_28
+  end,
+})
+local function r58_0(r0_27)
+  -- line: [131, 138] id: 27
+  if not r0_27 then
+    return false
+  end
+  return r25_0(r0_27, r53_0, "jo") ~= nil
+end
+local r59_0 = r9_0.new(100)
+local function r60_0(r0_26, r1_26, r2_26)
+  -- line: [142, 162] id: 26
+  if not r20_0.ctx.plugin.is_31x then
+    return r2_26(r1_26)
+  end
+  if r22_0(r1_26) ~= "string" then
+    r1_26 = r23_0(r1_26)
+  end
+  r0_26 = r55_0(r0_26)
+  local r3_26 = r59_0:get(r0_26)
+  if not r3_26 then
+    r3_26 = assert(r32_0(r0_26))
+    r59_0:set(r0_26, r3_26)
+  end
+  return r19_0.validate(r3_26, r1_26)
+end
+local function r61_0(r0_25, r1_25)
+  -- line: [164, 186] id: 25
+  local r3_25 = r57_0[r1_25]
+  local r4_25, r5_25 = r4_0(r1_25.style, r1_25.decoded_schema.type, r1_25.explode, r1_25.name, r20_0.ctx.plugin.template_environment[r0_25], r0_25)
+  if r5_25 == "not found" and not r1_25.required then
+    return true
+  end
+  if r5_25 or not r4_25 then
+    return false
+  end
+  if r1_25.decoded_schema.type == "array" and r22_0(r4_25) == "table" then
+    r24_0(r4_25, r0_0.array_mt)
+  end
+  local r6_25 = r20_0.ctx.plugin.is_31x
+  if r6_25 then
+    r6_25 = r22_0(r4_25)
+    if r6_25 == "table" then
+      r6_25 = assert(r32_0(r4_25))
+      if not r6_25 then
+        ::label_60::
+        r6_25 = r4_25
+      end
+    end
+  else
+    goto label_60	-- block#12 is visited secondly
+  end
+  return r60_0(r1_25.decoded_schema, r6_25, r3_25)
+end
+local function r62_0(r0_24, r1_24, r2_24)
+  -- line: [190, 207] id: 24
+  local r3_24 = r0_24["in"]
+  if r3_24 == "header" and not r1_24.validate_request_header_params then
+    return false
+  end
+  if r3_24 == "query" and not r1_24.validate_request_query_params then
+    return false
+  end
+  if r3_24 == "path" and not r1_24.validate_request_uri_params then
+    return false
+  end
+  if r3_24 == "body" and not r1_24.validate_request_body and r2_24.swagger then
+    return false
+  end
+  return true
+end
+local function r63_0(r0_23)
+  -- line: [210, 283] id: 23
+  local r1_23 = r20_0.ctx.plugin.is_31x
+  if r0_23["in"] == "cookie" then
+    r0_23.style = "form"
+  end
+  local r3_23 = nil	-- notice: implicit variable refs by block#[34]
+  if r0_23["in"] == "body" then
+    local r3_23, r4_23 = r60_0(r0_23.schema, r0_23.value, r56_0[r0_23])
+    if not r3_23 then
+      return false, r4_23
+    end
+    return true
+  elseif r0_23.style then
+    local r2_23 = r57_0[r0_23]
+    r3_23 = r0_23.decoded_schema.type
+    if not r3_23 then
+      r3_23 = r0_23.value
+      if r3_23 ~= nil then
+        r3_23 = true
+        return r3_23
+      end
+    end
+    local r3_23, r4_23 = r4_0(r0_23.style, r0_23.decoded_schema.type, r0_23.explode, r0_23.value, nil, r0_23["in"])
+    if r4_23 or not r3_23 then
+      return false, r4_23
+    end
+    if r1_23 then
+      r3_23, r4_23 = r45_0(r3_23, r0_23.decoded_schema)
+      if r4_23 then
+        return false, r4_23
+      end
+    end
+    local r5_23 = r0_23.decoded_schema.type
+    if r5_23 == "array" then
+      r5_23 = r22_0(r3_23)
+      if r5_23 == "table" then
+        r24_0(r3_23, r0_0.array_mt)
+      end
+    end
+    if r1_23 then
+      r5_23 = assert(r32_0(r3_23))
+      if not r5_23 then
+        ::label_93::
+        r5_23 = r3_23
+      end
+    else
+      goto label_93	-- block#21 is visited secondly
+    end
+    local r6_23, r7_23 = r60_0(r0_23.decoded_schema, r5_23, r2_23)
+    if not r6_23 then
+      return false, r7_23
+    end
+    return true
+  else
+    if r0_23.type == "array" and r22_0(r0_23.value) == "string" then
+      local r2_23 = {}
+      r3_23 = r0_23.value
+      r2_23[1] = r3_23
+      r0_23.value = r2_23
+    end
+    if r0_23.type == "array" and r22_0(r0_23.value) == "table" then
+      r24_0(r0_23.value, r0_0.array_mt)
+    end
+    local r2_23 = r57_0[r0_23]
+    if r1_23 then
+      r3_23 = assert(r32_0(r0_23.value))
+      if not r3_23 then
+        ::label_143::
+        r3_23 = r0_23.value
+      end
+    else
+      goto label_143	-- block#33 is visited secondly
+    end
+    local r4_23, r5_23 = r60_0(r0_23.decoded_schema, r3_23, r2_23)
+    if not r4_23 then
+      return false, r5_23
+    end
+    return true
+  end
+end
+local function r64_0(r0_22)
+  -- line: [286, 320] id: 22
+  local r1_22 = r6_0(r0_22)
+  local r2_22 = {
+    type = r1_22.type,
+    enum = r1_22.enum,
+    items = r1_22.items,
+    pattern = r1_22.pattern,
+    format = r1_22.format,
+    minItems = r1_22.minItems,
+    maxItems = r1_22.maxItems,
+  }
+  if r1_22.type == "array" and r22_0(r1_22.value) == "string" and r1_22.collectionFormat then
+    r1_22.value = r40_0(r1_22)
+  end
+  if r1_22.type == "array" and r22_0(r1_22.value) == "table" then
+    r24_0(r1_22.value, r0_0.array_mt)
+  end
+  r1_22.schema = r2_22
+  local r4_22, r5_22 = r57_0[r1_22](r1_22.value)
+  if not r4_22 then
+    return false, r5_22
+  end
+  local r6_22, r7_22 = r42_0(r1_22)
+  if not r6_22 then
+    return false, r7_22
+  end
+  return true
+end
+local function r65_0(r0_21, r1_21)
+  -- line: [324, 341] id: 21
+  local r2_21 = r0_21["in"]
+  if r2_21 == "query" and r0_21.style == "deepObject" then
+    return r61_0(r2_21, r0_21)
+  end
+  if not r0_21.required and r0_21.value == nil then
+    return true
+  end
+  if r0_21.schema then
+    return r63_0(r0_21)
+  elseif r1_21 ~= r51_0 then
+    return r64_0(r0_21)
+  end
+end
+local function r66_0(r0_19)
+  -- line: [343, 352] id: 19
+  local r1_19 = {
+    "|",
+    "?",
+    "%.",
+    "-",
+    "+",
+    "*"
+  }
+  local r2_19 = r0_19
+  for r6_19, r7_19 in r26_0(r1_19) do
+    r2_19 = r2_19:gsub(r7_19, "\\" .. r7_19)
+  end
+  return r30_0(r2_19, "{(.-)}", function(r0_20)
+    -- line: [351, 351] id: 20
+    return "(?<" .. r0_20 .. ">[^/]+)"
+  end)
+end
+local function r67_0(r0_18, r1_18)
+  -- line: [354, 386] id: 18
+  local r2_18 = r20_0.ctx.plugin.template_environment
+  local r3_18 = nil
+  local r4_18 = r0_18["in"]
+  if r4_18 == "body" then
+    r3_18 = r37_0()
+    if not r3_18 then
+      r3_18 = r33_0
+    end
+  elseif r4_18 == "path" then
+    local r5_18 = r13_0(r20_0.request.get_path(), true)
+    local r6_18 = r66_0(r1_18)
+    local r7_18, r8_18 = r25_0(r5_18, r6_18, "jo")
+    if r8_18 then
+      r20_0.log.err("failed to match regular expression path: ", r6_18)
+    end
+    if r7_18 then
+      r3_18 = r7_18[r0_18.name]
+    end
+  else
+    r3_18 = r2_18[r4_18][r0_18.name]
+  end
+  if r4_18 == "query" and r0_18.required and r3_18 == nil and not r0_18.allowEmptyValue then
+    return false, "required parameter value not found in request"
+  end
+  if r4_18 ~= "query" and r0_18.required and r3_18 == nil then
+    return false, "required parameter value not found in request"
+  end
+  r0_18.value = r3_18
+  return true
+end
+local function r68_0(r0_17, r1_17, r2_17)
+  -- line: [389, 401] id: 17
+  local r3_17, r4_17 = r67_0(r0_17, r1_17)
+  if not r3_17 then
+    return false, r4_17
+  end
+  local r5_17, r6_17 = r65_0(r0_17, r2_17)
+  if not r5_17 then
+    return false, r6_17
+  end
+  return true
+end
+local function r69_0(r0_16, r1_16, r2_16)
+  -- line: [405, 426] id: 16
+  for r7_16, r8_16 in r27_0(r20_0.ctx.plugin.template_environment[r1_16]) do
+    local r9_16 = false
+    local r10_16 = r27_0
+    local r12_16 = r0_16
+    if not r12_16 then
+      r12_16 = r33_0
+    end
+    for r13_16, r14_16 in r10_16(r12_16) do
+      if r14_16["in"] == r1_16 then
+        local r15_16 = r7_16.lower(r7_16)
+        local r16_16 = r14_16.name
+        if r15_16 == r16_16.lower(r16_16) then
+          r9_16 = true
+          break
+        end
+      end
+    end
+    if not r9_16 and r2_16 and r34_0(r3_0(r2_16.lower(r2_16), ","), r7_16:lower()) then
+      r9_16 = true
+    end
+    if not r9_16 then
+      return false, r28_0("%s parameter \'%s\' does not exist in specification", r1_16, r7_16)
+    end
+  end
+  return true
+end
+local function r70_0(r0_15)
+  -- line: [429, 441] id: 15
+  local r1_15 = r5_0.emit
+  local r3_15 = "oas-validation"
+  local r4_15 = "validation-failed"
+  local r5_15 = {}
+  local r6_15 = r20_0.client.get_consumer()
+  if not r6_15 then
+    r6_15 = {}
+  end
+  r5_15.consumer = r6_15
+  r5_15.ip = r20_0.client.get_forwarded_ip()
+  r6_15 = r20_0.router.get_service()
+  if not r6_15 then
+    r6_15 = {}
+  end
+  r5_15.service = r6_15
+  r5_15.err = r0_15
+  local r1_15, r2_15 = r1_15(r3_15, r4_15, r5_15)
+  if not r1_15 then
+    r20_0.log.warn("failed to emit event: ", r2_15)
+  end
+end
+local function r71_0(r0_14, r1_14, r2_14, r3_14)
+  -- line: [444, 457] id: 14
+  if not r3_14 then
+    r3_14 = r33_0
+  end
+  r70_0(r0_14)
+  if r3_14.interrupt_request then
+    local r4_14 = r3_14.verbose
+    if r4_14 then
+      r4_14 = r0_14
+      if not r4_14 then
+        ::label_14::
+        r4_14 = r1_14
+      end
+    else
+      goto label_14	-- block#5 is visited secondly
+    end
+    r20_0.response.exit(r2_14, {
+      message = r4_14,
+    })
+    return 
+  end
+  local r4_14 = r3_14.log_level
+  if not r4_14 then
+    r4_14 = "err"
+  end
+  r20_0.log[r4_14](r0_14)
+end
+function r54_0.init_worker(r0_13)
+  -- line: [460, 467] id: 13
+  r5_0.publish("oas-validation", "validation-failed", {
+    ["description"] = "Run an event when oas validation fails",
+    fields = {
+      "consumer",
+      "ip",
+      "service",
+      "err"
+    },
+    unique = {
+      "consumer",
+      "ip",
+      "service"
+    },
+  })
+end
+local function r72_0(r0_12)
+  -- line: [471, 479] id: 12
+  if r0_12 then
+    local r1_12, r2_12 = r15_0(r0_12)
+    if r1_12 and r2_12 then
+      return r1_12 .. "/" .. r2_12
+    end
+  end
+  return r50_0
+end
+function r54_0.response(r0_11, r1_11)
+  -- line: [482, 539] id: 11
+  if not r1_11.validate_response_body then
+    return 
+  end
+  if r20_0.response.get_source() ~= "service" then
+    return 
+  end
+  local r2_11 = r21_0.ctx._oas_validation_data
+  if not r2_11 then
+    r2_11 = r33_0
+  end
+  local r3_11 = r20_0.service.response.get_status()
+  local r4_11 = r72_0(r20_0.service.response.get_header("Content-Type"))
+  if r4_11 ~= "application/json" then
+    r20_0.log.info("response body content-type \'" .. r4_11 .. "\' is not supported yet, ignore validation")
+    return 
+  end
+  local r5_11 = r44_0
+  local r7_11 = r2_11.spec_version
+  if not r7_11 then
+    r7_11 = r51_0
+  end
+  local r10_11 = r4_11
+  local r5_11, r6_11 = r5_11(r7_11, r2_11.spec_method, r3_11, r10_11)
+  local r11_11 = nil	-- notice: implicit variable refs by block#[11]
+  if not r5_11 then
+    return r71_0(r6_11, nil, r11_11, {
+      ["log_level"] = "notice",
+      ["interrupt_request"] = false,
+      verbose = r1_11.verbose_response,
+    })
+  end
+  r7_11 = {
+    schema = r5_11,
+  }
+  local r8_11 = r20_0.service.response.get_raw_body()
+  local r9_11 = nil
+  r11_11 = r20_0.ctx.plugin.is_31x
+  if r11_11 then
+    r9_11, r10_11 = r60_0(r7_11.schema, r8_11, nil)
+  else
+    r11_11 = r31_0(r8_11)
+    if r7_11.schema.type == "array" and r22_0(r11_11) == "string" then
+      r11_11 = {
+        r11_11
+      }
+    end
+    if r7_11.schema.type == "array" and r22_0(r11_11) == "table" then
+      r24_0(r11_11, r0_0.array_mt)
+    end
+    r9_11, r10_11 = r60_0(r7_11.schema, r11_11, r56_0[r7_11])
+  end
+  if not r9_11 then
+    r10_11 = r28_0("response body validation failed with error: %s", r35_0(r10_11, "userdata", "null"))
+    local r16_11 = {
+      ["log_level"] = "err",
+      verbose = r1_11.verbose_response,
+    }
+    local r17_11 = r1_11.notify_only_response_body_validation_failure
+    r16_11.interrupt_request = not r0_11
+    return r71_0(r10_11, r49_0, 406, r16_11)
+  end
+end
+local function r73_0(r0_10, r1_10, r2_10)
+  -- line: [541, 548] id: 10
+  if r1_10 == true then
+    local r3_10 = r2_10.type
+    if r22_0(r3_10) == "string" then
+      r2_10.type = {
+        r3_10,
+        "null"
+      }
+    end
+  end
+end
+local function r74_0(r0_9)
+  -- line: [550, 582] id: 9
+  local r1_9 = r0_9.api_spec
+  if r0_9.api_spec_encoded then
+    r1_9 = r21_0.unescape_uri(r1_9)
+  end
+  local r2_9 = r28_0("%s:%s:%s", r12_0(r1_9), r0_9.include_base_path, r0_9.custom_base_path)
+  local r3_9 = r46_0:get(r2_9)
+  if not r3_9 then
+    local r5_9, r6_9 = r7_0.parse(r1_9, {
+      resolve_base_path = r0_9.include_base_path,
+      custom_base_path = r0_9.custom_base_path,
+      dereference = {
+        ["circular"] = true,
+      },
+    })
+    if r6_9 then
+      return nil, r6_9
+    end
+    if not r58_0(r5_9.spec.openapi) then
+      r10_0.traverse(r5_9, "nullable", r73_0)
+    end
+    r3_9 = r5_9.spec
+    r46_0:set(r2_9, r3_9)
+  end
+  return r3_9
+end
+local function r75_0()
+  -- line: [584, 625] id: 2
+  local r0_2 = r18_0
+  local r0_2, r1_2 = r0_2.new(r0_2)
+  if r1_2 then
+    r20_0.log.warn("failed to create cookie object for current request: ", r1_2)
+  end
+  return r24_0({}, {
+    __index = function(r0_4, r1_4)
+      -- line: [591, 618] id: 4
+      local r3_4 = ({
+        header = function(r0_8)
+          -- line: [593, 595] id: 8
+          local r1_8 = r20_0.request.get_headers()
+          if not r1_8 then
+            r1_8 = r33_0
+          end
+          return r1_8
+        end,
+        query = function(r0_7)
+          -- line: [596, 598] id: 7
+          local r1_7 = r20_0.request.get_query()
+          if not r1_7 then
+            r1_7 = r33_0
+          end
+          return r1_7
+        end,
+        path = function(r0_6)
+          -- line: [599, 601] id: 6
+          local r1_6 = r3_0(r29_0(r20_0.request.get_path(), 2), "/")
+          if not r1_6 then
+            r1_6 = r33_0
+          end
+          return r1_6
+        end,
+        cookie = function(r0_5)
+          -- line: [602, 607] id: 5
+          if not r0_2 then
+            return r33_0
+          end
+          local r1_5 = r0_2
+          r1_5 = r1_5.get_all(r1_5)
+          if not r1_5 then
+            r1_5 = r33_0
+          end
+          return r1_5
+        end,
+      })[r1_4]
+      if not r3_4 then
+        -- close: 0 -- jump: 32768
+        return 
+      end
+      local r4_4 = r3_4()
+      rawset(r0_4, r1_4, r4_4)
+      return r4_4
+    end,
+    __new_index = function(r0_3)
+      -- line: [619, 621] id: 3
+      error("This environment is read-only.")
+    end,
+  })
+end
+function r54_0.access(r0_1, r1_1)
+  -- line: [628, 744] id: 1
+  r20_0.ctx.plugin.template_environment = r75_0()
+  local r2_1 = r20_0.request.get_method()
+  local r3_1 = r20_0.request.get_path()
+  local r4_1 = {
+    verbose = r1_1.verbose_response,
+  }
+  local r5_1 = r1_1.notify_only_request_validation_failure
+  r4_1.interrupt_request = not r0_1
+  r5_1 = {}
+  if r1_1.validate_response_body then
+    r21_0.ctx._oas_validation_data = r5_1
+  end
+  local r6_1, r7_1 = r74_0(r1_1)
+  if r7_1 then
+    return r71_0("validation failed, Unable to parse the api specification: " .. r7_1, r47_0, 400, r4_1)
+  end
+  r20_0.ctx.plugin.is_31x = r58_0(r6_1.openapi)
+  local r8_1, r9_1, r10_1 = r10_0.retrieve_operation(r6_1, r3_1, r2_1)
+  if not r10_1 then
+    return r71_0("validation failed, path not found in api specification", r47_0, 400, r4_1)
+  end
+  r5_1.spec_method = r10_1
+  r5_1.spec_version = r6_1.swagger
+  local r11_1 = r10_1.parameters
+  if not r11_1 then
+    r11_1 = {}
+  end
+  if r8_1.parameters then
+    r11_1 = r41_0(r8_1.parameters, r11_1)
+  end
+  if r1_1.header_parameter_check then
+    local r12_1, r13_1 = r69_0(r11_1, "header", r1_1.allowed_header_parameters)
+    if not r12_1 then
+      return r71_0(r28_0("validation failed with error: %s", r13_1), r48_0, 400, r4_1)
+    end
+  end
+  if r1_1.query_parameter_check then
+    local r12_1, r13_1 = r69_0(r11_1, "query")
+    if not r12_1 then
+      return r71_0(r28_0("validation failed with error: %s", r13_1), r48_0, 400, r4_1)
+    end
+  end
+  local r12_1 = r72_0(r36_0("Content-Type"))
+  if r12_1 ~= "application/json" then
+    r20_0.log.info("request body content-type \'" .. r12_1 .. "\' is not supported yet, ignore validation")
+    return 
+  end
+  local r13_1, r14_1 = r39_0(r12_1, r2_1, r10_1)
+  for r18_1, r19_1 in r26_0(r11_1) do
+    if r62_0(r19_1, r1_1, r6_1) then
+      if r19_1["in"] == "body" and not r13_1 then
+        r7_1 = r28_0("validation failed: %s", r14_1)
+        return r71_0(r7_1, r47_0, 400, r4_1)
+      end
+      local r20_1 = r68_0
+      local r22_1 = r19_1
+      local r23_1 = r9_1
+      local r24_1 = r6_1.swagger
+      if not r24_1 then
+        r24_1 = r51_0
+      end
+      local r20_1, r21_1 = r20_1(r22_1, r23_1, r24_1)
+      if not r20_1 then
+        return r71_0(r28_0("%s \'%s\' validation failed with error: \'%s\'", r19_1["in"], r19_1.name, r35_0(r21_1, "userdata", "null")), r48_0, 400, r4_1)
+      end
+    end
+  end
+  local r15_1 = r10_1.requestBody
+  if r1_1.validate_request_body and r6_1.openapi and r52_0[r2_1] and r15_1 then
+    if not r13_1 then
+      return r71_0(r28_0("validation failed: %s", r14_1), r47_0, 400, r4_1)
+    end
+    local r16_1, r17_1 = r43_0(r15_1, r12_1)
+    if not r16_1 then
+      return r71_0(r17_1, r48_0, 400, r4_1)
+    end
+    local r18_1 = {
+      schema = r16_1,
+    }
+    local r19_1 = r56_0[r18_1]
+    local r20_1 = r20_0.ctx.plugin.is_31x
+    if r20_1 then
+      r20_1 = r38_0()
+      if not r20_1 then
+        ::label_249::
+        r20_1 = r37_0()
+        if not r20_1 then
+          r20_1 = r33_0
+        end
+      end
+    else
+      goto label_249	-- block#38 is visited secondly
+    end
+    local r21_1, r22_1 = r60_0(r18_1.schema, r20_1, r19_1)
+    if not r21_1 then
+      return r71_0(r28_0("request body validation failed with error: \'%s\'", r35_0(r22_1, "userdata", "null")), r48_0, 400, r4_1)
+    end
+  end
+end
+return r54_0
