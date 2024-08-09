@@ -1,0 +1,56 @@
+local cjson = require("cjson")
+
+-- Function to resolve a reference in the schema
+local function resolve_ref(schema, ref, base_path)
+    -- Handle internal references
+    if ref:sub(1, 1) == "#" then
+        local path = ref:sub(3):split("/")
+        local result = schema
+        for _, key in ipairs(path) do
+            result = result[key]
+            if not result then
+                error("Reference not found: " .. ref)
+            end
+        end
+        return result
+    else
+        -- Handle external references (URLs)
+        local url = ref
+        local fetched_schema = fetch_schema_from_url(url)
+        return resolve_schema(fetched_schema, base_path)
+    end
+end
+
+-- Function to recursively resolve all references in a schema
+local function resolve_schema(schema, base_path)
+    if type(schema) == "table" then
+        if schema["$ref"] then
+            return resolve_ref(schema, schema["$ref"], base_path)
+        else
+            for key, value in pairs(schema) do
+                schema[key] = resolve_schema(value, base_path)
+            end
+        end
+    end
+    return schema
+end
+
+-- Example usage
+local schema = cjson.decode([[{
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "address": { "$ref": "#/definitions/Address" }
+  }
+}]])
+
+local resolved_schema = resolve_schema(schema, "")
+print(cjson.encode(resolved_schema))
