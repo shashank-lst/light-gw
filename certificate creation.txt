@@ -1,0 +1,27 @@
+
+Create CA for Backend
+	openssl genrsa -des3 -out backendCA.key 2048
+	openssl req -x509 -new -nodes -key backendCA.key -sha256 -days 1825 -out backendCA.pem
+
+Create certificate for backend
+	openssl genrsa -des3 -out backend.key 2048
+	openssl req -new -sha256 -key backend.key -out backend.csr
+	openssl x509 -req -in backend.csr -CA backendCA.pem -CAkey backendCA.key -CAcreateserial -out backend.pem -days 365 -sha256
+	Decrypt certificate key
+		openssl rsa -in kong.key -out kongdecrypt.key -traditional
+
+Create CA for Kong Gateway
+	openssl genrsa -des3 -out kongCA.key 2048
+	openssl req -x509 -new -nodes -key kongCA.key -sha256 -days 1825 -out kongCA.pem
+
+Create certificate for Kong Gateway
+openssl genrsa -des3 -out kong.key 2048
+openssl req -new -sha256 -key kong.key -out kong.csr
+openssl x509 -req -in kong.csr -CA kongCA.pem -CAkey kongCA.key -CAcreateserial -out kong.pem -days 365 -sha256
+
+Create Keystore for Backend
+	openssl pkcs12 -export -in backend.pem -out backendks.p12 -name backend -nodes -inkey backend.key
+Create Truststore for backend
+	keytool -import -file kongCA.pem -alias kongCA -keystore backendts.p12
+
+Enable / Disable Service
