@@ -1,0 +1,1351 @@
+{
+	"info": {
+		"_postman_id": "6ff52e99-227d-4540-aeb6-66d48bc4a776",
+		"name": "Flex May 25",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4241090"
+	},
+	"item": [
+		{
+			"name": "Management APIs",
+			"item": [
+				{
+					"name": "Get Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"grant_type\": \"client_credentials\",\r\n \"client_id\": \"ae344031f52c496d85f35333595f156c\",\r\n \"client_secret\": \"A90bFc59A3c34D6E8d578C9d24d1cC21\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/accounts/api/v2/oauth2/token",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"accounts",
+								"api",
+								"v2",
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Asset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-file-validation",
+								"value": "false"
+							},
+							{
+								"key": "x-strict-package",
+								"value": "false"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9"
+							},
+							{
+								"key": "Cookie",
+								"value": "XSRF-TOKEN=kuEQSBnJ-29saAWkXMa5Cz8hL8-5I3Tz8eew; _csrf=704j841isNj6s6UiOJ-XEzDa",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "organizationId",
+									"value": "2d842b55-18c9-4eab-aad7-b88eba263680",
+									"type": "text"
+								},
+								{
+									"key": "groupId",
+									"value": "2d842b55-18c9-4eab-aad7-b88eba263680",
+									"type": "text"
+								},
+								{
+									"key": "assetId",
+									"value": "my-flex-api-two",
+									"type": "text"
+								},
+								{
+									"key": "version",
+									"value": "1.5.0",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "my-flex-api-two",
+									"type": "text"
+								},
+								{
+									"key": "classifier",
+									"value": "oas",
+									"type": "text"
+								},
+								{
+									"key": "apiVersion",
+									"value": "v1",
+									"type": "text"
+								},
+								{
+									"key": "main",
+									"value": "sample-oas.yaml",
+									"type": "text"
+								},
+								{
+									"key": "asset",
+									"type": "file",
+									"src": "/D:/Flex/flexmay25/sample-oas1-5-0.yaml"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/exchange/api/v2/assets",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"exchange",
+								"api",
+								"v2",
+								"assets"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://anypoint.mulesoft.com/exchange/api/v2/assets' \\\r\n--header 'Content-Type: multipart/form-data' \\\r\n--header 'x-file-validation: false' \\\r\n--header 'x-strict-package: false' \\\r\n--header 'Authorization: bearer cdb371da-06f4-4255-bb5e-51209abee15d' \\\r\n--header 'Cookie: XSRF-TOKEN=kuEQSBnJ-29saAWkXMa5Cz8hL8-5I3Tz8eew; _csrf=704j841isNj6s6UiOJ-XEzDa' \\\r\n--form 'organizationId=\"90ede5b8-77cc-4347-8789-be82dbcdd59f\"' \\\r\n--form 'groupId=\"90ede5b8-77cc-4347-8789-be82dbcdd59f\"' \\\r\n--form 'assetId=\"oas-from-api\"' \\\r\n--form 'version=\"1.4.0\"' \\\r\n--form 'name=\"OAS From API One\"' \\\r\n--form 'classifier=\"oas\"' \\\r\n--form 'apiVersion=\"v1\"' \\\r\n--form 'asset=@\"postman-cloud:///1ef80d30-2146-4300-88f7-bba8545a07dc\"' \\\r\n--form 'main=\"openapi.yaml\"'"
+					},
+					"response": [
+						{
+							"name": "created_response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-file-validation",
+										"value": "false"
+									},
+									{
+										"key": "x-strict-package",
+										"value": "false"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9"
+									},
+									{
+										"key": "Cookie",
+										"value": "XSRF-TOKEN=kuEQSBnJ-29saAWkXMa5Cz8hL8-5I3Tz8eew; _csrf=704j841isNj6s6UiOJ-XEzDa",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "organizationId",
+											"value": "2d842b55-18c9-4eab-aad7-b88eba263680",
+											"type": "text"
+										},
+										{
+											"key": "groupId",
+											"value": "2d842b55-18c9-4eab-aad7-b88eba263680",
+											"type": "text"
+										},
+										{
+											"key": "assetId",
+											"value": "my-flex-api-two",
+											"type": "text"
+										},
+										{
+											"key": "version",
+											"value": "1.1.0",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "my-flex-api-two",
+											"type": "text"
+										},
+										{
+											"key": "classifier",
+											"value": "oas",
+											"type": "text"
+										},
+										{
+											"key": "apiVersion",
+											"value": "v1",
+											"type": "text"
+										},
+										{
+											"key": "main",
+											"value": "sample-oas.yaml",
+											"type": "text"
+										},
+										{
+											"key": "asset",
+											"type": "file",
+											"src": "postman-cloud:///1f030060-cf6e-4710-8934-d4193d17ab6f"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://anypoint.mulesoft.com/exchange/api/v2/assets",
+									"protocol": "https",
+									"host": [
+										"anypoint",
+										"mulesoft",
+										"com"
+									],
+									"path": [
+										"exchange",
+										"api",
+										"v2",
+										"assets"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store, no-cache, must-revalidate, proxy-revalidate"
+								},
+								{
+									"key": "content-security-policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "cross-origin-embedder-policy",
+									"value": "require-corp"
+								},
+								{
+									"key": "cross-origin-opener-policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "cross-origin-resource-policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 May 2025 14:25:38 GMT"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"1ed-uoXQChmp+gcgwbnRgYz8xQE13kA\""
+								},
+								{
+									"key": "expires",
+									"value": "0"
+								},
+								{
+									"key": "origin-agent-cluster",
+									"value": "?1"
+								},
+								{
+									"key": "referrer-policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "surrogate-control",
+									"value": "no-store"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-dns-prefetch-control",
+									"value": "off"
+								},
+								{
+									"key": "x-download-options",
+									"value": "noopen"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "x-request-id",
+									"value": "f1d0ce2a-a0b2-44f2-a45e-e09d330ae717"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "Content-Length",
+									"value": "493"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"organizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n    \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n    \"assetId\": \"my-flex-api-two\",\n    \"version\": \"1.1.0\",\n    \"apiVersion\": \"v1\",\n    \"main\": \"sample-oas.yaml\",\n    \"versionGroup\": \"v1\",\n    \"classifier\": \"oas\",\n    \"metadata\": {\n        \"classifier\": \"oas\",\n        \"tags\": [\n            {\n                \"value\": \"oas\"\n            },\n            {\n                \"value\": \"rest\"\n            },\n            {\n                \"value\": \"api\"\n            },\n            {\n                \"key\": \"product-api-version\",\n                \"value\": \"v1\"\n            },\n            {\n                \"key\": \"original-format\",\n                \"value\": \"oas\"\n            }\n        ],\n        \"name\": \"my-flex-api-two\",\n        \"type\": \"rest-api\"\n    },\n    \"name\": \"my-flex-api-two\",\n    \"type\": \"rest-api\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create API",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"spec\": {\r\n   \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\r\n   \"assetId\": \"my-flex-api-two\",\r\n   \"version\": \"1.1.0\"\r\n },\r\n \"endpoint\": {\r\n   \"deploymentType\": \"HY\",\r\n   \"uri\": \"https://jsonplaceholder.typicode.com/\",\r\n   \"proxyUri\": \"http://localhost:8081/ext/two\",\r\n   \"isCloudHub\": null\r\n },\r\n \"technology\": \"flexGateway\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/apimanager/api/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"apimanager",
+								"api",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://anypoint.mulesoft.com/apimanager/api/v1/organizations/90ede5b8-77cc-4347-8789-be82dbcdd59f/environments/0a04d9f0-97ab-4bb5-89a6-ece5296ea4ec/apis' \\\r\n--header 'Authorization: bearer cdb371da-06f4-4255-bb5e-51209abee15d' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n \"spec\": {\r\n   \"groupId\": \"90ede5b8-77cc-4347-8789-be82dbcdd59f\",\r\n   \"assetId\": \"oas-from-api\",\r\n   \"version\": \"1.4.0\"\r\n },\r\n \"endpoint\": {\r\n   \"deploymentType\": \"HY\",\r\n   \"uri\": \"http://host.docker.internal:8080\",\r\n   \"proxyUri\": \"http://localhost:8081/four\",\r\n   \"isCloudHub\": null\r\n },\r\n \"technology\": \"flexGateway\"\r\n}'"
+					},
+					"response": [
+						{
+							"name": "create_api_response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n \"spec\": {\r\n   \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\r\n   \"assetId\": \"my-flex-api-two\",\r\n   \"version\": \"1.1.0\"\r\n },\r\n \"endpoint\": {\r\n   \"deploymentType\": \"HY\",\r\n   \"uri\": \"https://jsonplaceholder.typicode.com/\",\r\n   \"proxyUri\": \"http://localhost:8081/ext/two\",\r\n   \"isCloudHub\": null\r\n },\r\n \"technology\": \"flexGateway\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://anypoint.mulesoft.com/apimanager/api/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis",
+									"protocol": "https",
+									"host": [
+										"anypoint",
+										"mulesoft",
+										"com"
+									],
+									"path": [
+										"apimanager",
+										"api",
+										"v1",
+										"organizations",
+										"2d842b55-18c9-4eab-aad7-b88eba263680",
+										"environments",
+										"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+										"apis"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-security-policy",
+									"value": "default-src 'self'"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 May 2025 14:33:45 GMT"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"3ef-OJJYLKUmiuhNeh6pzDmRQ18UT9Y\""
+								},
+								{
+									"key": "expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "x-request-d",
+									"value": "5ced8694cbb4340ebb329580cd89c3ba"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1007"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\",\n    \"providerId\": null,\n    \"technology\": \"flexGateway\",\n    \"approvalMethod\": null,\n    \"assetVersion\": \"1.1.0\",\n    \"productVersion\": \"v1\",\n    \"order\": 1,\n    \"stage\": \"release\",\n    \"audit\": {\n        \"created\": {\n            \"date\": \"2025-05-13T14:33:45.296Z\"\n        },\n        \"updated\": {}\n    },\n    \"masterOrganizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n    \"organizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n    \"id\": 20343381,\n    \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n    \"assetId\": \"my-flex-api-two\",\n    \"tags\": [],\n    \"endpoint\": {\n        \"deploymentType\": \"HY\",\n        \"isCloudHub\": null,\n        \"muleVersion4OrAbove\": null,\n        \"referencesUserDomain\": null,\n        \"responseTimeout\": null,\n        \"uri\": \"https://jsonplaceholder.typicode.com/\",\n        \"proxyUri\": \"http://localhost:8081/ext/two\",\n        \"type\": \"rest\",\n        \"validation\": \"NOT_APPLICABLE\",\n        \"audit\": {\n            \"created\": {\n                \"date\": \"2025-05-13T14:33:45.296Z\"\n            },\n            \"updated\": {}\n        },\n        \"masterOrganizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n        \"organizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n        \"id\": 4850964,\n        \"apiId\": 20343381\n    },\n    \"autodiscoveryInstanceName\": \"v1:20343381\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get API List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/apimanager/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"apimanager",
+								"xapi",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get API List Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://anypoint.mulesoft.com/apimanager/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis",
+									"protocol": "https",
+									"host": [
+										"anypoint",
+										"mulesoft",
+										"com"
+									],
+									"path": [
+										"apimanager",
+										"xapi",
+										"v1",
+										"organizations",
+										"2d842b55-18c9-4eab-aad7-b88eba263680",
+										"environments",
+										"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+										"apis"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-security-policy",
+									"value": "default-src 'self'"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 May 2025 14:37:28 GMT"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"1293-OpeddXOAoCQ8umuhyJtaKP99zz4\""
+								},
+								{
+									"key": "expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "x-request-d",
+									"value": "6dea0b33e1f856d6447ab7b94f3fd5a6"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Content-Length",
+									"value": "4755"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"total\": 4,\n    \"instances\": [\n        {\n            \"audit\": {\n                \"created\": {\n                    \"date\": \"2025-05-13T14:33:45.296Z\"\n                },\n                \"updated\": {\n                    \"date\": \"2025-05-13T14:33:45.296Z\"\n                }\n            },\n            \"masterOrganizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"organizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"id\": 20343381,\n            \"instanceLabel\": null,\n            \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"assetId\": \"my-flex-api-two\",\n            \"assetVersion\": \"1.1.0\",\n            \"productVersion\": \"v1\",\n            \"description\": null,\n            \"tags\": [],\n            \"order\": 1,\n            \"providerId\": null,\n            \"deprecated\": false,\n            \"lastActiveDate\": null,\n            \"endpointUri\": null,\n            \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\",\n            \"isPublic\": false,\n            \"stage\": \"release\",\n            \"technology\": \"flexGateway\",\n            \"status\": \"unregistered\",\n            \"approvalMethod\": null,\n            \"deployment\": null,\n            \"routing\": [\n                {\n                    \"upstreams\": [\n                        {\n                            \"id\": \"72d353d7-e964-4de1-891d-6e9f8f30c261\",\n                            \"weight\": 100\n                        }\n                    ]\n                }\n            ],\n            \"pinned\": false,\n            \"activeContractsCount\": 0,\n            \"asset\": {\n                \"name\": \"groupId:2d842b55-18c9-4eab-aad7-b88eba263680:assetId:my-flex-api-two\",\n                \"exchangeAssetName\": \"my-flex-api-two\",\n                \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n                \"assetId\": \"my-flex-api-two\"\n            },\n            \"autodiscoveryInstanceName\": \"v1:20343381\"\n        },\n        {\n            \"audit\": {\n                \"created\": {\n                    \"date\": \"2025-05-13T13:58:53.771Z\"\n                },\n                \"updated\": {\n                    \"date\": \"2025-05-13T14:14:21.121Z\"\n                }\n            },\n            \"masterOrganizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"organizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"id\": 20343297,\n            \"instanceLabel\": null,\n            \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"assetId\": \"my-flex-api-one\",\n            \"assetVersion\": \"1.0.0\",\n            \"productVersion\": \"v1\",\n            \"description\": null,\n            \"tags\": [],\n            \"order\": 1,\n            \"providerId\": null,\n            \"deprecated\": false,\n            \"lastActiveDate\": null,\n            \"endpointUri\": null,\n            \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\",\n            \"isPublic\": false,\n            \"stage\": \"release\",\n            \"technology\": \"flexGateway\",\n            \"status\": \"unregistered\",\n            \"approvalMethod\": null,\n            \"deployment\": {\n                \"audit\": {\n                    \"created\": {},\n                    \"updated\": {}\n                },\n                \"applicationId\": \"3d706366-3b36-4d74-b5d9-80a899e9615c\",\n                \"targetId\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\n                \"expectedStatus\": \"deployed\"\n            },\n            \"routing\": [\n                {\n                    \"upstreams\": [\n                        {\n                            \"id\": \"07d19ad5-dc35-42d3-85cf-a3ce1f317641\",\n                            \"weight\": 100\n                        }\n                    ]\n                }\n            ],\n            \"pinned\": false,\n            \"activeContractsCount\": 0,\n            \"asset\": {\n                \"name\": \"groupId:2d842b55-18c9-4eab-aad7-b88eba263680:assetId:my-flex-api-one\",\n                \"exchangeAssetName\": \"my-flex-api-one\",\n                \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n                \"assetId\": \"my-flex-api-one\"\n            },\n            \"autodiscoveryInstanceName\": \"v1:20343297\"\n        },\n        {\n            \"audit\": {\n                \"created\": {\n                    \"date\": \"2025-05-13T14:04:45.479Z\"\n                },\n                \"updated\": {\n                    \"date\": \"2025-05-13T14:13:44.125Z\"\n                }\n            },\n            \"masterOrganizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"organizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"id\": 20343313,\n            \"instanceLabel\": null,\n            \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"assetId\": \"my-flex-api-ns-one\",\n            \"assetVersion\": \"1.0.0\",\n            \"productVersion\": \"v1\",\n            \"description\": null,\n            \"tags\": [],\n            \"order\": 1,\n            \"providerId\": null,\n            \"deprecated\": false,\n            \"lastActiveDate\": null,\n            \"endpointUri\": null,\n            \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\",\n            \"isPublic\": false,\n            \"stage\": \"release\",\n            \"technology\": \"flexGateway\",\n            \"status\": \"unregistered\",\n            \"approvalMethod\": null,\n            \"deployment\": {\n                \"audit\": {\n                    \"created\": {},\n                    \"updated\": {}\n                },\n                \"applicationId\": \"67ce1741-7652-445d-880a-35062bb5b103\",\n                \"targetId\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\n                \"expectedStatus\": \"deployed\"\n            },\n            \"routing\": [\n                {\n                    \"upstreams\": [\n                        {\n                            \"id\": \"c0a5d73f-3a11-491d-a5c2-32c0c313c426\",\n                            \"weight\": 100\n                        }\n                    ]\n                }\n            ],\n            \"pinned\": false,\n            \"activeContractsCount\": 0,\n            \"asset\": {\n                \"name\": \"groupId:2d842b55-18c9-4eab-aad7-b88eba263680:assetId:my-flex-api-ns-one\",\n                \"exchangeAssetName\": \"my-flex-api-ns-one\",\n                \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n                \"assetId\": \"my-flex-api-ns-one\"\n            },\n            \"autodiscoveryInstanceName\": \"v1:20343313\"\n        },\n        {\n            \"audit\": {\n                \"created\": {\n                    \"date\": \"2025-05-13T14:11:50.290Z\"\n                },\n                \"updated\": {\n                    \"date\": \"2025-05-13T14:11:50.290Z\"\n                }\n            },\n            \"masterOrganizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"organizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"id\": 20343343,\n            \"instanceLabel\": null,\n            \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n            \"assetId\": \"my-flex-api-jsonp-one\",\n            \"assetVersion\": \"1.0.0\",\n            \"productVersion\": \"v1\",\n            \"description\": null,\n            \"tags\": [],\n            \"order\": 1,\n            \"providerId\": null,\n            \"deprecated\": false,\n            \"lastActiveDate\": null,\n            \"endpointUri\": null,\n            \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\",\n            \"isPublic\": false,\n            \"stage\": \"release\",\n            \"technology\": \"flexGateway\",\n            \"status\": \"unregistered\",\n            \"approvalMethod\": null,\n            \"deployment\": {\n                \"audit\": {\n                    \"created\": {},\n                    \"updated\": {}\n                },\n                \"applicationId\": \"dfd7e093-5d8e-473a-9f73-6442dff82ba6\",\n                \"targetId\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\n                \"expectedStatus\": \"deployed\"\n            },\n            \"routing\": [\n                {\n                    \"upstreams\": [\n                        {\n                            \"id\": \"ffbe0d09-6fb5-4166-8c3b-b60d10e2602d\",\n                            \"weight\": 100\n                        }\n                    ]\n                }\n            ],\n            \"pinned\": false,\n            \"activeContractsCount\": 0,\n            \"asset\": {\n                \"name\": \"groupId:2d842b55-18c9-4eab-aad7-b88eba263680:assetId:my-flex-api-jsonp-one\",\n                \"exchangeAssetName\": \"my-flex-api-jsonp-one\",\n                \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n                \"assetId\": \"my-flex-api-jsonp-one\"\n            },\n            \"autodiscoveryInstanceName\": \"v1:20343343\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get API By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/apimanager/api/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"apimanager",
+								"api",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis",
+								"20343381"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get API By ID Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://anypoint.mulesoft.com/apimanager/api/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381",
+									"protocol": "https",
+									"host": [
+										"anypoint",
+										"mulesoft",
+										"com"
+									],
+									"path": [
+										"apimanager",
+										"api",
+										"v1",
+										"organizations",
+										"2d842b55-18c9-4eab-aad7-b88eba263680",
+										"environments",
+										"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+										"apis",
+										"20343381"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-security-policy",
+									"value": "default-src 'self'"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 May 2025 14:43:12 GMT"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"4b4-RWoC30Mjr3FdgWLIdeDFWBGA61M\""
+								},
+								{
+									"key": "expires",
+									"value": "-1"
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "x-request-d",
+									"value": "a58be3abb6a1d170fb8e75204e51292a"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1204"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"audit\": {\n        \"created\": {\n            \"date\": \"2025-05-13T14:33:45.296Z\"\n        },\n        \"updated\": {\n            \"date\": \"2025-05-13T14:33:45.296Z\"\n        }\n    },\n    \"masterOrganizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n    \"organizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n    \"id\": 20343381,\n    \"instanceLabel\": null,\n    \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n    \"assetId\": \"my-flex-api-two\",\n    \"assetVersion\": \"1.1.0\",\n    \"productVersion\": \"v1\",\n    \"description\": null,\n    \"tags\": [],\n    \"order\": 1,\n    \"providerId\": null,\n    \"deprecated\": false,\n    \"lastActiveDate\": null,\n    \"endpointUri\": null,\n    \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\",\n    \"isPublic\": false,\n    \"stage\": \"release\",\n    \"technology\": \"flexGateway\",\n    \"approvalMethod\": null,\n    \"endpoint\": {\n        \"audit\": {\n            \"created\": {},\n            \"updated\": {}\n        },\n        \"id\": 4850964,\n        \"type\": \"rest\",\n        \"uri\": \"https://jsonplaceholder.typicode.com/\",\n        \"apiGatewayVersion\": null,\n        \"proxyUri\": \"http://localhost:8081/ext/two\",\n        \"proxyRegistrationUri\": null,\n        \"lastActiveDate\": null,\n        \"isCloudHub\": null,\n        \"deploymentType\": \"HY\",\n        \"policiesVersion\": null,\n        \"referencesUserDomain\": null,\n        \"responseTimeout\": null,\n        \"wsdlConfig\": null,\n        \"muleVersion4OrAbove\": null\n    },\n    \"deployment\": null,\n    \"routing\": [\n        {\n            \"upstreams\": [\n                {\n                    \"id\": \"72d353d7-e964-4de1-891d-6e9f8f30c261\",\n                    \"weight\": 100\n                }\n            ]\n        }\n    ],\n    \"status\": \"unregistered\",\n    \"autodiscoveryInstanceName\": \"v1:20343381\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Deployments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/proxies/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381/deployments",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"proxies",
+								"xapi",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis",
+								"20343381",
+								"deployments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Deployments By API ID Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://anypoint.mulesoft.com/proxies/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343297/deployments",
+									"protocol": "https",
+									"host": [
+										"anypoint",
+										"mulesoft",
+										"com"
+									],
+									"path": [
+										"proxies",
+										"xapi",
+										"v1",
+										"organizations",
+										"2d842b55-18c9-4eab-aad7-b88eba263680",
+										"environments",
+										"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+										"apis",
+										"20343297",
+										"deployments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 May 2025 14:45:16 GMT"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"397-9WwQFL/Cc/3FzGnB9WfiyY7psU0\""
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Length",
+									"value": "919"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"audit\": {\n            \"created\": {\n                \"date\": \"2025-05-13T13:58:53.771Z\"\n            },\n            \"updated\": {\n                \"date\": \"2025-05-13T14:14:23.067Z\"\n            }\n        },\n        \"masterOrganizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n        \"organizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n        \"id\": 1200200,\n        \"applicationId\": \"3d706366-3b36-4d74-b5d9-80a899e9615c\",\n        \"applicationName\": null,\n        \"gatewayVersion\": \"1.9.2\",\n        \"environmentName\": null,\n        \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\",\n        \"remoteSystemId\": null,\n        \"targetType\": null,\n        \"targetId\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\n        \"targetName\": \"shk-flex-con-v1\",\n        \"deploymentId\": null,\n        \"updatedDate\": \"2025-05-13T14:14:23.067Z\",\n        \"type\": \"HY\",\n        \"expectedStatus\": \"deployed\",\n        \"targetMetadata\": {\n            \"spec\": {\n                \"target\": {\n                    \"annotations\": {\n                        \"gateway-manager.mulesoft.com/kind\": \"selfManaged\"\n                    },\n                    \"environment\": {\n                        \"target\": {\n                            \"id\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\n                            \"provider\": \"RR\"\n                        }\n                    }\n                }\n            },\n            \"target\": {\n                \"id\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\n                \"provider\": \"RR\"\n            }\n        },\n        \"apiId\": 20343297\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Deployments By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/proxies/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381/deployments/1200243/",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"proxies",
+								"xapi",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis",
+								"20343381",
+								"deployments",
+								"1200243",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Deployment By ID Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://anypoint.mulesoft.com/proxies/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381/deployments/1200243",
+									"protocol": "https",
+									"host": [
+										"anypoint",
+										"mulesoft",
+										"com"
+									],
+									"path": [
+										"proxies",
+										"xapi",
+										"v1",
+										"organizations",
+										"2d842b55-18c9-4eab-aad7-b88eba263680",
+										"environments",
+										"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+										"apis",
+										"20343381",
+										"deployments",
+										"1200243"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 May 2025 14:56:06 GMT"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"388-zjbqMPwMtEDv6VURZOV6nkARL2E\""
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Length",
+									"value": "904"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"audit\": {\n        \"created\": {\n            \"date\": \"2025-05-13T14:52:41.947Z\"\n        },\n        \"updated\": {\n            \"date\": \"2025-05-13T14:52:42.551Z\"\n        }\n    },\n    \"masterOrganizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n    \"organizationId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\n    \"id\": 1200243,\n    \"applicationId\": \"0c14873f-03a7-457b-82f7-732a8fe64855\",\n    \"applicationName\": null,\n    \"gatewayVersion\": \"1.9.2\",\n    \"environmentName\": null,\n    \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\",\n    \"remoteSystemId\": null,\n    \"targetType\": null,\n    \"targetId\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\n    \"targetName\": null,\n    \"deploymentId\": null,\n    \"updatedDate\": \"2025-05-13T14:52:42.551Z\",\n    \"type\": \"HY\",\n    \"expectedStatus\": \"deployed\",\n    \"targetMetadata\": {\n        \"spec\": {\n            \"target\": {\n                \"annotations\": {\n                    \"gateway-manager.mulesoft.com/kind\": \"selfManaged\"\n                },\n                \"environment\": {\n                    \"target\": {\n                        \"id\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\n                        \"provider\": \"RR\"\n                    }\n                }\n            }\n        },\n        \"target\": {\n            \"id\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\n            \"provider\": \"RR\"\n        }\n    },\n    \"apiId\": 20343381\n}"
+						}
+					]
+				},
+				{
+					"name": "Deploy API",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"type\": \"HY\",\r\n \"gatewayVersion\": \"1.9.2\",\r\n \"targetId\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\r\n \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/proxies/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381/deployments",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"proxies",
+								"xapi",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis",
+								"20343381",
+								"deployments"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://anypoint.mulesoft.com/proxies/xapi/v1/organizations/90ede5b8-77cc-4347-8789-be82dbcdd59f/environments/0a04d9f0-97ab-4bb5-89a6-ece5296ea4ec/apis/19984438/deployments' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'Authorization: bearer cdb371da-06f4-4255-bb5e-51209abee15d' \\\r\n--data '{\r\n \"type\": \"HY\",\r\n \"gatewayVersion\": \"1.8.1\",\r\n \"targetId\": \"a17ac0d9-49ab-4758-b918-29a6e0246b9d\",\r\n \"environmentId\": \"0a04d9f0-97ab-4bb5-89a6-ece5296ea4ec\"\r\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Redeploy",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"type\": \"HY\",\r\n \"gatewayVersion\": \"1.9.2\",\r\n \"targetId\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\r\n \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/proxies/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381/deployments/1200243/",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"proxies",
+								"xapi",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis",
+								"20343381",
+								"deployments",
+								"1200243",
+								""
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://anypoint.mulesoft.com/proxies/xapi/v1/organizations/90ede5b8-77cc-4347-8789-be82dbcdd59f/environments/0a04d9f0-97ab-4bb5-89a6-ece5296ea4ec/apis/19984438/deployments' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'Authorization: bearer cdb371da-06f4-4255-bb5e-51209abee15d' \\\r\n--data '{\r\n \"type\": \"HY\",\r\n \"gatewayVersion\": \"1.8.1\",\r\n \"targetId\": \"a17ac0d9-49ab-4758-b918-29a6e0246b9d\",\r\n \"environmentId\": \"0a04d9f0-97ab-4bb5-89a6-ece5296ea4ec\"\r\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Update API",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"spec\": {\r\n   \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\r\n   \"assetId\": \"my-flex-api-two\",\r\n   \"version\": \"1.5.0\"\r\n },\r\n \"endpoint\": {\r\n   \"deploymentType\": \"HY\",\r\n   \"uri\": \"https://jsonplaceholder.typicode.com/\",\r\n   \"proxyUri\": \"http://localhost:8081/ext/two\",\r\n   \"isCloudHub\": null\r\n },\r\n \"technology\": \"flexGateway\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/apimanager/api/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"apimanager",
+								"api",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis",
+								"20343381"
+							]
+						},
+						"description": "Generated from cURL: curl --location --request PATCH 'https://anypoint.mulesoft.com/apimanager/api/v1/organizations/90ede5b8-77cc-4347-8789-be82dbcdd59f/environments/0a04d9f0-97ab-4bb5-89a6-ece5296ea4ec/apis/19984478' \\\r\n--header 'Authorization: bearer cdb371da-06f4-4255-bb5e-51209abee15d' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n \"spec\": {\r\n   \"groupId\": \"90ede5b8-77cc-4347-8789-be82dbcdd59f\",\r\n   \"assetId\": \"oas-from-api\",\r\n   \"version\": \"1.5.0\"\r\n },\r\n \"endpoint\": {\r\n   \"deploymentType\": \"HY\",\r\n   \"uri\": \"http://host.docker.internal:8080\",\r\n   \"proxyUri\": \"http://localhost:8081/four\",\r\n   \"isCloudHub\": null\r\n },\r\n \"technology\": \"flexGateway\"\r\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Runtime Details",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/gatewaymanager/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/gateways?kind=selfManaged",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"gatewaymanager",
+								"xapi",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"gateways"
+							],
+							"query": [
+								{
+									"key": "kind",
+									"value": "selfManaged"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deployment Status",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/proxies/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381/deployments/1200243/status",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"proxies",
+								"xapi",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis",
+								"20343381",
+								"deployments",
+								"1200243",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get API By Name",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer ae6f0fe6-f45c-4272-beb1-ebd5bc56a8b4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/apiplatform/repository/v2/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/apis/by-name?apiName=my-flex-api-two",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"apiplatform",
+								"repository",
+								"v2",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"apis",
+								"by-name"
+							],
+							"query": [
+								{
+									"key": "apiName",
+									"value": "my-flex-api-two"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update API Ne",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assetVersion\":\"1.4.0\",\r\n    \"technology\": \"flexGateway\",\r\n    \"approvalMethod\": null,\r\n    \"providerId\": null,\r\n    \"endpointUri\": null,\r\n    \"endpoint\": {\r\n        \"deploymentType\": \"HY\",\r\n        \"muleVersion4OrAbove\": null,\r\n        \"type\": \"rest\",\r\n        \"isCloudHub\": null,\r\n        \"proxyUri\": \"http://0.0.0.0:8081/ext/two\",\r\n        \"referencesUserDomain\": null,\r\n        \"responseTimeout\": null,\r\n        \"tlsContexts\": {\r\n            \"inbound\": null\r\n        }\r\n    },\r\n    \"spec\": {\r\n        \"assetId\": \"my-flex-api-two\",\r\n        \"groupId\": \"2d842b55-18c9-4eab-aad7-b88eba263680\",\r\n        \"version\": \"1.4.0\"\r\n    },\r\n    \"instanceLabel\": null,\r\n    \"routing\": [\r\n        {\r\n            \"upstreams\": [\r\n                {\r\n                    \"weight\": 100,\r\n                    \"id\": \"72d353d7-e964-4de1-891d-6e9f8f30c261\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"upstreams\": [\r\n        {\r\n            \"id\": \"72d353d7-e964-4de1-891d-6e9f8f30c261\",\r\n            \"label\": \"Test\",\r\n            \"uri\": \"https://jsonplaceholder.typicode.com/\",\r\n            \"tlsContext\": null\r\n        }\r\n    ],\r\n    \"deployment\": {\r\n        \"environmentId\": \"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d\",\r\n        \"type\": \"HY\",\r\n        \"expectedStatus\": \"deployed\",\r\n        \"overwrite\": true,\r\n        \"targetId\": \"f0fef355-2b17-447f-a6d5-d2ab8ae377c7\",\r\n        \"targetName\": \"shk-flex-con-v1\",\r\n        \"gatewayVersion\": \"1.0.0\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/apimanager/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381?checkAutomatedPolicies=true",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"apimanager",
+								"xapi",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis",
+								"20343381"
+							],
+							"query": [
+								{
+									"key": "checkAutomatedPolicies",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Asset Version",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer d65b5acb-5293-49a8-ae8f-972ff9670bd9",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"assetVersion\":\"1.5.0\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/apimanager/xapi/v1/organizations/2d842b55-18c9-4eab-aad7-b88eba263680/environments/dbabd038-8ae3-4c9d-9ef2-be57d9bce48d/apis/20343381?checkAutomatedPolicies=true",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"apimanager",
+								"xapi",
+								"v1",
+								"organizations",
+								"2d842b55-18c9-4eab-aad7-b88eba263680",
+								"environments",
+								"dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+								"apis",
+								"20343381"
+							],
+							"query": [
+								{
+									"key": "checkAutomatedPolicies",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "My Flex API One",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/ext/two/todos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"ext",
+						"two",
+						"todos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
