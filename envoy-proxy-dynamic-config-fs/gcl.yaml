@@ -1,0 +1,38 @@
+---
+apiVersion: gateway.mulesoft.com/v1alpha1
+kind: Extension
+metadata:
+  labels:
+    title: flex-default-policy
+    category: Custom
+    metadata/interfaceScope: api,resource
+spec:
+  extends:
+    - name: extension-definition
+      namespace: default
+  properties:
+    logInfo:
+      title: Log Info
+      description: Whether to log info messages.
+      type: boolean
+      default: true
+    logDebug:
+      title: Log Debug
+      description: Whether to log debug messages.
+      type: boolean
+      default: false
+    logWarn:
+      title: Log Warn
+      description: Whether to log warning messages.
+      type: boolean
+      default: true
+    logError:
+      title: Log Error
+      description: Whether to log error messages.
+      type: boolean
+      default: true
+  required:
+    - logInfo
+    - logDebug
+    - logWarn
+    - logError
