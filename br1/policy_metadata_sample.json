@@ -1,0 +1,21 @@
+{
+  "flex_metadata": {
+    "flex_name": "0deb1fd3237d.default",
+    "flex_version": "1.9.2"
+  },
+  "policy_metadata": {
+    "policy_name": "apii-20343381-my-flex-api-two-p1",
+    "policy_namespace": "dbabd038-8ae3-4c9d-9ef2-be57d9bce48d"
+  },
+  "api_metadata": {
+    "id": "20343381",
+    "name": "my-flex-api-two",
+    "version": "v1:20343381",
+    "slas": []
+  },
+  "platform_metadata": {
+    "organization_id": "2d842b55-18c9-4eab-aad7-b88eba263680",
+    "environment_id": "dbabd038-8ae3-4c9d-9ef2-be57d9bce48d",
+    "root_organization_id": "2d842b55-18c9-4eab-aad7-b88eba263680"
+  }
+}
